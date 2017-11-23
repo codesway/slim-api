@@ -12,3 +12,23 @@
 
 
 
+# nginx conf
+
+```$xslt
+
+
+server {
+    listen      80;
+    server_name CodeWay.liuxiaoliang.com;
+    root your project root;
+    index index.php index.html index.htm;
+	access_log /data/logs/nginx/your acc log;
+	error_log /data/logs/nginx/your err error;
+    
+    location / {
+        try_files $uri $uri/ /index.php;
+    }
+	include /Users/MacBook/orp/opt/nginx/conf/conf.d/php-fpm71;
+}
+
+```

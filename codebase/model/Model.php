@@ -10,7 +10,7 @@
 use CC\Core\Base\BaseModel;
 class Model extends BaseModel
 {
-    
+
     public function getUserList()
     {
 
