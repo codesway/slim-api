@@ -8,8 +8,11 @@
 */
 namespace CC\Controller\User;
 
-use CC\Core\Base\BaseController;
-class UserController extends BaseController
+use CC\Core\Main;
+use CC\Core\Base\ControllerBase;
+use CC\Codebase\Model\User\UserModel;
+
+class UserController extends ControllerBase
 {
 
     public function listAction()
@@ -19,7 +22,12 @@ class UserController extends BaseController
 
     public function dddAction()
     {
+        // api luyou
+
+        print_r((new UserModel())->getUser());
+//        print_r(Main::getDI('cc_city')); exit();
 //        $this->app = Main::getApp(PHP_SAPI);
+//        print_r(UserModel::All());
         return 'eeee' . PHP_EOL;
     }
 
@@ -28,4 +36,11 @@ class UserController extends BaseController
     {
         return __METHOD__ . "\r\n";
     }
+
+
+    public function findAction()
+    {
+        return 'xxx' . PHP_EOL;
+    }
+
 }

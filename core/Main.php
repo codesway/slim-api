@@ -71,4 +71,13 @@ class Main
     {
         include $filename;
     }
+
+    public static function getDI($name = null)
+    {
+        $di = self::$app->getContainer();
+        if ($name === null) {
+            return $di;
+        }
+        return $di->get($name);
+    }
 }

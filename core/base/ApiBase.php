@@ -10,7 +10,7 @@
 
 namespace CC\Core\Base;
 
-class BaseApi
+class ApiBase
 {
 
 

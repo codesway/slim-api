@@ -24,3 +24,25 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
+
+// db 1
+$container['cc_common'] = function ($c) {
+    $dbConf = $c->get('configHandler')->get('database', 'dbs');
+    $dbPool = $c->get('configHandler')->get('database', 'pool')[$dbConf];
+    $dbInstance = new \Illuminate\Database\Capsule\Manager();
+    $dbInstance->addConnection($dbPool);
+    $dbInstance->setAsGlobal();
+    $dbInstance->bootEloquent();
+    return $dbInstance;
+};
+// db 2
+$container['cc_city'] = function ($c) {
+    $dbConf = $c->get('configHandler')->get('database', 'dbs');
+    $current = 'callcenter';
+    $dbPool = $c->get('configHandler')->get('database', 'pool')[$current];
+    $dbInstance = new \Illuminate\Database\Capsule\Manager();
+    $dbInstance->addConnection($dbPool);
+    $dbInstance->setAsGlobal();
+    $dbInstance->bootEloquent();
+    return $dbInstance;
+};

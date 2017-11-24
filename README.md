@@ -32,3 +32,9 @@ server {
 }
 
 ```
+
+# Mysql ROM&查询构造器 Tools
+
+* https://d.laravel-china.org/docs/5.5/eloquent
+* https://docs.golaravel.com/docs/4.1/eloquent/
+

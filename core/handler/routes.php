@@ -7,6 +7,7 @@ use Slim\Http\Response;
 $app = Cc\Core\Main::getApp(PHP_SAPI);
 
 $app->get('/user/ddd', \CC\Controller\User\UserController::class. ':dddAction')->setName('userList');
+
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
@@ -21,6 +22,12 @@ $app->group('/v1/user', function () {
     $action = array_pop($path);
     $this->get('/' . $action, \CC\Controller\User\UserController::class. ':' . $action . 'Action')->setName('userList');
 });
+
+$app->get('/user/ccc', function (Request $request, Response $response, array $args) {
+    $obj = $this->cc_city->table('time_st')->get();
+    print_r($obj);
+})->setName('userInfo');
+
 
 /**
 getScheme()

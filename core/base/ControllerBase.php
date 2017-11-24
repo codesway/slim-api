@@ -9,7 +9,7 @@
 namespace CC\Core\Base;
 
 use CC\Core\Main;
-class BaseController
+class ControllerBase
 {
     public function __construct($di)
     {
