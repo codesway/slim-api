@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f8b0fa96767b18ea625d1a7b8bb6042",
+    "content-hash": "645e0d946aec3e05ad489d27aabd71de",
     "packages": [
         {
             "name": "akrabat/rka-ip-address-middleware",
@@ -151,6 +151,67 @@
                 "string"
             ],
             "time": "2017-07-22T12:18:28+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.1.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/filp/whoops/c6081b8838686aa04f1e83ba7e91f78b7b2a23e6.zip",
+                "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9 || ^7.0",
+                "psr/log": "^1.0.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "symfony/var-dumper": "^2.6 || ^3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "throwable",
+                "whoops"
+            ],
+            "time": "2017-11-23T18:22:44+00:00"
         },
         {
             "name": "illuminate/container",
@@ -579,6 +640,93 @@
                 "dependency injection"
             ],
             "time": "2017-07-23T07:32:15+00:00"
+        },
+        {
+            "name": "prezto/ipfilter",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Prezto/IpFilter.git",
+                "reference": "f240a60a78f9acb59f50811c92c4d4152d09f137"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Prezto/IpFilter/f240a60a78f9acb59f50811c92c4d4152d09f137.zip",
+                "reference": "f240a60a78f9acb59f50811c92c4d4152d09f137",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prezto\\IpFilter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dany Henriquez",
+                    "email": "dany.henriquez@outlook.comm"
+                }
+            ],
+            "description": "PSR-7 ip filter middleware. Sets the status code to 401 if needed according to user defined rules.",
+            "homepage": "https://github.com/Prezto/permission",
+            "keywords": [
+                "firewall",
+                "ip-filter",
+                "middleware",
+                "psr-7"
+            ],
+            "time": "2016-05-22T16:02:42+00:00"
+        },
+        {
+            "name": "prezto/permission",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Prezto/permission.git",
+                "reference": "043bb8db90fe9919b31dc0ed883d609c0fe945fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/Prezto/permission/043bb8db90fe9919b31dc0ed883d609c0fe945fb.zip",
+                "reference": "043bb8db90fe9919b31dc0ed883d609c0fe945fb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prezto\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "authors": [
+                {
+                    "name": "Dany Henriquez",
+                    "email": "dany.henriquez@outlook.comm"
+                }
+            ],
+            "description": "PSR-7 permission middleware. Sets the status code to 401 if needed according to user defined rules.",
+            "homepage": "https://github.com/Prezto/permission",
+            "keywords": [
+                "acl",
+                "permissions",
+                "psr-7"
+            ],
+            "time": "2016-05-19T17:47:49+00:00"
         },
         {
             "name": "psr/container",
@@ -1017,6 +1165,57 @@
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
             "time": "2017-11-07T14:12:55+00:00"
+        },
+        {
+            "name": "zeuxisoo/slim-whoops",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeuxisoo/php-slim-whoops.git",
+                "reference": "f97a23cf20119119df675406a1eae1e0f7f85ca2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/zeuxisoo/php-slim-whoops/f97a23cf20119119df675406a1eae1e0f7f85ca2.zip",
+                "reference": "f97a23cf20119119df675406a1eae1e0f7f85ca2",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "2.1.*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*",
+                "slim/slim": "3.8.*",
+                "slim/twig-view": "2.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Zeuxisoo\\Whoops\\Provider\\Slim": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Zeuxis Lo",
+                    "email": "seekstudio@gmail.com",
+                    "homepage": "http://www.not.im/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP whoops error on slim framework",
+            "homepage": "https://github.com/zeuxisoo/php-slim-whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "slim",
+                "whoops"
+            ],
+            "time": "2017-03-23T02:42:19+00:00"
         }
     ],
     "packages-dev": [

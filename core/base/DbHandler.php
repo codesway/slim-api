@@ -5,7 +5,7 @@ namespace CC\Core\Base;
 use Illuminate\Database\Eloquent\Model; //ORM基类
 use Illuminate\Support\Facades\DB; //查询构造器
 use Illuminate\Database\Capsule\Manager;
-class Database
+class DbHandler
 {
     public static $db = null;
     public static $di = null;

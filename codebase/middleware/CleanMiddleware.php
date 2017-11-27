@@ -1,23 +1,21 @@
 <?php
 /*
 ** Created by lll.
-** FileName: CommonMiddleware.php
+** FileName: OutputMiddleware.php
 ** Author: liulinliang@hunbasha.com
-** Date: 2017/11/20
+** Date: 2017/11/23
 ** Brief
 */
 
 namespace CC\Codebase\Middleware;
 
-
-class CommonMiddleware
+class CleanMiddleware
 {
     public function __invoke($request, $response, $next)
     {
         //验证
-        $response->getBody()->write(__METHOD__ . PHP_EOL);
         $response = $next($request, $response);
+        $response->getBody()->write(__METHOD__ . PHP_EOL);
         return $response;
     }
 }
-

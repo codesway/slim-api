@@ -9,15 +9,37 @@ $app = Cc\Core\Main::getApp(PHP_SAPI);
 $container = $app->getContainer();
 
 $middlewareConf = $container->get('configHandler')->get('middleware');
+$level = $container['configHandler']::getEnv()['level'];
 
-foreach ($middlewareConf['common']['before'] as $class) {
-    $app->add(new $class());
+//$app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware($app));
+//加载框架通用级别中间件
+if (!empty($middlewareConf['common_level']['before'])) {
+    loadMiddle($middlewareConf['common_level']['before'], $app);
+}
+//加载当前模式级别中间件
+if (!empty($middlewareConf[$level]['before'])) {
+    loadMiddle($middlewareConf[$level]['before'], $app);
 }
 
-foreach ($middlewareConf['common']['after'] as $class) {
-    $app->add(new $class());
+
+if (!empty($middlewareConf['common_level']['after'])) {
+    loadMiddle($middlewareConf['common_level']['after'], $app);
 }
 
+if (!empty($middlewareConf[$level]['after'])) {
+    loadMiddle($middlewareConf[$level]['after'], $app);
+}
+
+function loadMiddle($middleArr, $app)
+{
+    if (empty($middleArr)) {
+        return false;
+    }
+
+    foreach ($middleArr as $middle) {
+        $app->add(new $middle());
+    }
+}
 
 // TODO
 // csrf 验证，黑名单，token，权限  四部必须

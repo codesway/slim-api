@@ -6,39 +6,42 @@
 ** Date: 2017/11/20
 ** Brief
 */
-namespace CC\Controller\User;
+namespace CC\Api\User;
 
 use CC\Core\Main;
-use CC\Core\Base\ControllerBase;
+use CC\Core\Base\ApiBase;
 use CC\Codebase\Model\User\UserModel;
 
-class UserController extends ControllerBase
+class UserApi extends ApiBase
 {
 
-    public function listAction()
+    public function listExecute()
     {
         return 'this is list page ' . PHP_EOL;
     }
 
-    public function dddAction()
+    public function dddExecute()
     {
         // api luyou
-
-        print_r((new UserModel())->getUser());
+//        print_r((new UserModel())->getUser());
 //        print_r(Main::getDI('cc_city')); exit();
 //        $this->app = Main::getApp(PHP_SAPI);
 //        print_r(UserModel::All());
+//        throw new \InvalidArgumentException('xxx');
+        echo $b;
+        fun();
+//        $this->xxx();
         return 'eeee' . PHP_EOL;
     }
 
 
-    public function xxxAction()
+    public function xxxExecute()
     {
         return __METHOD__ . "\r\n";
     }
 
 
-    public function findAction()
+    public function findExecute()
     {
         return 'xxx' . PHP_EOL;
     }

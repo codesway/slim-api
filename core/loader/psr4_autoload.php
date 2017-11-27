@@ -9,7 +9,8 @@
 
 
 return [
-    'CC\\Controller\\User\\' => [C_ROOT . 'user'],
+    'CC\\Api\\User\\' => [A_ROOT . 'user'],
+    // codebase
     'CC\\Codebase\\Config\\' => [CODEBASE_ROOT . 'config'],
     'CC\\Codebase\\Api\\' => [CODEBASE_ROOT . 'api'],
     'CC\\Codebase\\Libs\\' => [CODEBASE_ROOT . 'libs'],
@@ -17,5 +18,8 @@ return [
     'CC\\Codebase\\Model\\User\\' => [CODEBASE_ROOT . 'model' . DS . 'user'],
     'CC\\Codebase\\Service\\' => [CODEBASE_ROOT . 'service'],
     'CC\\Codebase\\Middleware\\' => [CODEBASE_ROOT . 'middleware'],
+    //core
     'CC\\Core\\Base\\' => [CORE_ROOT . 'base'],
+    'CC\\Core\\Exception\\' => [CORE_ROOT . 'exception'],
+    'CC\\Core\\Handler\\' => [CORE_ROOT . 'handler'],
 ];

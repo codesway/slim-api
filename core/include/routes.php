@@ -4,9 +4,17 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 //所有路由的配置
 // Routes
+use Prezto\IpFilter\IpFilterMiddleware;
+use Prezto\IpFilter\Mode;
 $app = Cc\Core\Main::getApp(PHP_SAPI);
 
-$app->get('/user/ddd', \CC\Controller\User\UserController::class. ':dddAction')->setName('userList');
+//# Instantiate with a single address. Allow only one ip.
+//$filter = new IpFilterMiddleware(['192.168.1.7'], Mode::DENY);
+//
+//# Instantiate with an address range. Allow only this range.
+//$filter = new IpFilterMiddleware([['192.168.1.100', '192.168.1.200']], Mode::DENY);
+
+$app->get('/user/ddd', \CC\Api\User\UserApi::class. ':dddExecute')->setName('userList');
 
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {
     // Sample log message
@@ -19,12 +27,12 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
 //第一个版本路由
 $app->group('/v1/user', function () {
     $path = explode('/', $this->getContainer()->get('request')->getUri()->getPath());
-    $action = array_pop($path);
-    $this->get('/' . $action, \CC\Controller\User\UserController::class. ':' . $action . 'Action')->setName('userList');
+    $Api = array_pop($path);
+    $this->get('/' . $Api, \CC\Api\User\UserApi::class. ':' . $Api . 'Execute')->setName('userList');
 });
 
 $app->get('/user/ccc', function (Request $request, Response $response, array $args) {
-    $obj = $this->cc_city->table('time_st')->get();
+    $obj = $this->cityDB->table('time_st')->get();
     print_r($obj);
 })->setName('userInfo');
 

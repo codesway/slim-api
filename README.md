@@ -36,5 +36,18 @@ server {
 # Mysql ROM&查询构造器 Tools
 
 * https://d.laravel-china.org/docs/5.5/eloquent
+* https://d.laravel-china.org/docs/5.5/database
 * https://docs.golaravel.com/docs/4.1/eloquent/
+* https://segmentfault.com/a/1190000002468218
 
+
+
+# Slim3 官方组件
+https://github.com/slimphp/Slim/wiki/Middleware-for-Slim-Framework-v3.x
+
+
+# 安装
+* composer install
+* composer update
+* 修改.env所属环境
+* 开始

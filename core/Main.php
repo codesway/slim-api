@@ -2,6 +2,8 @@
 namespace CC\Core;
 
 use CC\Codebase\Config\ConfigHandler;
+use CC\Codebase\ConfigDefine;
+
 class Main
 {
     public static $mode = null;
@@ -15,6 +17,12 @@ class Main
             self::_buildInit();
         }
         self::_after();
+//        try {
+//            throw new \CC\Core\Exception\ErrorException();
+//        }catch(\Exception $e) {
+////            throw $e;
+//            exit('捕获到' . $e->getMessage() . $e->getCode());
+//        }
         return self::$app;
     }
 
@@ -29,6 +37,7 @@ class Main
         defined('CONTROLLER_SUFFIX') or define('CONTROLLER_SUFFIX', 'controller');
         defined('ACTION_SUFFIX') or define('ACTION_SUFFIX', 'action');
         defined('C_ROOT') or define('C_ROOT', ROOT . 'controller' . DS);
+        defined('A_ROOT') or define('A_ROOT', ROOT . 'api' . DS);
     }
 
     private static function _buildInit()
@@ -48,13 +57,24 @@ class Main
 //        print_r(new \CC\Codebase\Middleware\TokenMiddleware());
 //        print_r(new \CC\Controller\User\UserController());
         //启动核心
-        self::$app = new \Slim\App();
+        ConfigHandler::init();
+        self::$app = new \Slim\App(ConfigHandler::get('container'));//下面的三个顺序不可变，必须是这个顺序
+        self::registerErrorHandler();
         //载入di依赖组件
-        self::_loadHandler(CORE_ROOT . 'handler' . DS . 'relys.php');
+        self::_loadHandler(CORE_ROOT . 'include' . DS . 'relys.php');
         //载入中间件
-        self::_loadHandler(CORE_ROOT . 'handler' . DS . 'middleware.php');
+        self::_loadHandler(CORE_ROOT . 'include' . DS . 'middleware.php');
         //载入路由分发
-        self::_loadHandler(CORE_ROOT . 'handler' . DS . 'routes.php');
+        self::_loadHandler(CORE_ROOT . 'include' . DS . 'routes.php');
+
+    }
+
+    private static function registerErrorHandler()
+    {
+        \CC\Core\Base\EHandler::init(self::getDI());
+        set_error_handler(['CC\\Core\\Base\\EHandler', 'customErrorHandler']);
+        set_exception_handler(['CC\\Core\\Base\\EHandler', 'customExceptionHandler']);
+        register_shutdown_function(['CC\\Core\\Base\\EHandler', 'customShutDownHandler']);
     }
 
     private static function _before()

@@ -11,7 +11,7 @@ class ConfigHandler
     private static $instance = null;
     private function __construct($env, $args = [])
     {
-        self::$env = $env['mode'];
+        self::$env = $env;
         self::$args = func_get_args();
     }
 
@@ -24,7 +24,7 @@ class ConfigHandler
         //把自己加入到DI
     }
 
-    private static function getEnv()
+    public static function getEnv()
     {
         $filename = CODEBASE_ROOT . 'config' . DS . '.env';
         if (!file_exists($filename)) {
@@ -49,7 +49,7 @@ class ConfigHandler
 
     private static function load($name)
     {
-        $filename = CODEBASE_ROOT . 'config' . DS . self::$env . DS . $name . '.php';
+        $filename = CODEBASE_ROOT . 'config' . DS . self::$env['mode'] . DS . $name . '.php';
         if (!file_exists($filename)) {
             throw new \Exception('sys.codebase.env:conf not exist');
         }
