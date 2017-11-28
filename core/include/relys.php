@@ -10,10 +10,7 @@ $container['configHandler'] = function ($c) {
 
 //print_r($container->configHandler->get('base')); exit();
 // view renderer
-$container['renderer'] = function ($c) {
-    $render = $c->configHandler->get('base', 'renderer');
-    return new Slim\Views\PhpRenderer($render['template_path']);
-};
+
 //print_r($settings = $container->get('configHandler')->get('base')); exit();
 // monolog
 $container['logger'] = function ($c) {
