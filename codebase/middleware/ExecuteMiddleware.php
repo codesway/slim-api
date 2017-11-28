@@ -15,8 +15,8 @@ class ExecuteMiddleware extends \CC\Core\Base\MiddlewareBase
     {
         //方法执行的钩子
 
-//        $response->getBody()->write(__METHOD__ . PHP_EOL);
         $body = $response->getBody();
+//        $response->getBody()->write(__METHOD__ . PHP_EOL);
         $response = $next($request, $response);
         return $response;
     }

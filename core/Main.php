@@ -17,12 +17,6 @@ class Main
             self::_buildInit();
         }
         self::_after();
-//        try {
-//            throw new \CC\Core\Exception\ErrorException();
-//        }catch(\Exception $e) {
-////            throw $e;
-//            exit('捕获到' . $e->getMessage() . $e->getCode());
-//        }
         return self::$app;
     }
 
@@ -58,7 +52,7 @@ class Main
 //        print_r(new \CC\Controller\User\UserController());
         //启动核心
         ConfigHandler::init();
-        self::$app = new \Slim\App(ConfigHandler::get('container'));//下面的三个顺序不可变，必须是这个顺序
+        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('container'));//下面的三个顺序不可变，必须是这个顺序
         self::registerErrorHandler();
         //载入di依赖组件
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'relys.php');

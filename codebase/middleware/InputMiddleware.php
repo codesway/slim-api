@@ -15,8 +15,8 @@ class InputMiddleware extends \CC\Core\Base\MiddlewareBase
     public function __invoke($request, $response, $next)
     {
         //验证
-        $this->checkInput($request);
-        $response->getBody()->write(__METHOD__ . '检查输入参数等' . PHP_EOL);
+//        $this->checkInput($request);
+//        $response->getBody()->write(__METHOD__ . '检查输入参数等' . PHP_EOL);
         $response = $next($request, $response);
         return $response;
     }

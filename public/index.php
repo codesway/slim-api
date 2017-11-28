@@ -30,6 +30,12 @@
 //$a();
 //exit('xxx');
 //main
+
+
+$a = function ($c, $d) {
+
+};
+
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__DIR__) . DS);
 define('CORE_ROOT', ROOT . 'core' . DS);

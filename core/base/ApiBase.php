@@ -6,19 +6,38 @@
 ** Date: 2017/11/18
 ** Brief
 */
-
-
 namespace CC\Core\Base;
 
 class ApiBase
 {
+
     public function __construct($di)
     {
         $this->di = $di;
-//        $this->app = Main::getApp(PHP_SAPI);
-//        print_r($this->container); exit();
+        if (!isset($this->onceExecuted)) {
+            $this->onceExecuted = null;
+        }
+        if (method_exists($this, '_once')) {
+            $this->onceExecuted = false;
+        }
     }
 
+
+    //路由中实现这三个方法
+//    public function once()
+//    {
+//
+//    }
+//
+//    public function _begin()
+//    {
+//
+//    }
+//
+//    public function _after()
+//    {
+//
+//    }
 
     protected function _handler()
     {
@@ -30,7 +49,5 @@ class ApiBase
 
     public function __destruct()
     {
-        // TODO: Implement __destruct() method.
     }
-
 }

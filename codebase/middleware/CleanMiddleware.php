@@ -15,7 +15,7 @@ class CleanMiddleware
     {
         //验证
         $response = $next($request, $response);
-        $response->getBody()->write(__METHOD__ . PHP_EOL);
+//        $response->getBody()->write(__METHOD__ . PHP_EOL);
         return $response;
     }
 }

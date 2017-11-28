@@ -17,7 +17,7 @@ class InitMiddleware extends \CC\Core\Base\MiddlewareBase
         $clientInfo = $this->getClientInfo($request);
 //        print_r($this->getHeaders($request)); exit();
         $this->set('clientInfo', $clientInfo);
-        $response->getBody()->write(__METHOD__ . PHP_EOL);
+//        $response->getBody()->write(__METHOD__ . PHP_EOL);
         $response = $next($request, $response);
         return $response;
     }

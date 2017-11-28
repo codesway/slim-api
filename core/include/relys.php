@@ -67,3 +67,8 @@ $container['notAllowedHandler'] = function ($c) {
     $class = $c->get('configHandler')->get('base', 'notAllowedHandler');
     return new $class($c);
 };
+
+$container['foundHandler'] = function ($c) {
+    $class = $c->get('configHandler')->get('base', 'foundHandler');
+    return new $class();
+};
