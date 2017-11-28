@@ -14,7 +14,7 @@ $container['configHandler'] = function ($c) {
 //print_r($settings = $container->get('configHandler')->get('base')); exit();
 // monolog
 $container['logger'] = function ($c) {
-    $log = $c->get('configHandler')->get('base', 'logger');
+    $log = $c->get('configHandler')->get('logger', 'debug');
     $logger = new Monolog\Logger($log['name']);
     $loggerUid = new Monolog\Processor\UidProcessor();
     $logger->pushProcessor($loggerUid->getUid());

@@ -11,6 +11,7 @@ class Main
 
     public static function getApp($mode)
     {
+        self::$mode = $mode;
         self::_before();
         if (empty(self::$app)) {
             self::_buildDefine();
@@ -52,7 +53,7 @@ class Main
 //        print_r(new \CC\Controller\User\UserController());
         //启动核心
         ConfigHandler::init();
-        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('container'));//下面的三个顺序不可变，必须是这个顺序
+        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
         self::registerErrorHandler();
         //载入di依赖组件
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'relys.php');

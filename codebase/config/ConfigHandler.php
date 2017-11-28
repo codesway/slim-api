@@ -28,7 +28,7 @@ class ConfigHandler
     {
         $filename = CODEBASE_ROOT . 'config' . DS . '.env';
         if (!file_exists($filename)) {
-            throw new Exception('sys.codebase.env: not exist');
+            throw new \Exception('sys.codebase.env: not exist');
         }
 
         return include $filename;
@@ -59,7 +59,7 @@ class ConfigHandler
     public static function set($name, $value)
     {
         if (!empty(self::$set[$name])) {
-            throw new Exception('sys.codebase.env:conf is exist');
+            throw new \Exception('sys.codebase.env:conf is exist');
         }
 
         self::$set[$name] = $value;
