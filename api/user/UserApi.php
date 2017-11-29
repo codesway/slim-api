@@ -28,11 +28,14 @@ class UserApi extends ApiBase
 
     public function listExecute()
     {
+        return [
+            1 => 3,
+        ];
         return 'this is list page ' . PHP_EOL;
     }
 
 
-    public function get()
+    public function getExecute()
     {
         return 'get==';
     }

@@ -17,43 +17,40 @@ class RequestResponseHandler implements InvocationStrategyInterface
             return call_user_func($callable, $request, $response, $routeArguments);
         }
 
+        if (is_array($callable) && ($callable[0] instanceof \CC\Core\Base\ApiBase)) {
+            return self::execApi($callable, $request, $response, $routeArguments);
+        }
+
+        return call_user_func($callable, $request, $response, $routeArguments);
+    }
+
+
+    private static function execApi($callable, $request, $response, $routeArguments)
+    {
         $obj = $callable[0];
         $method = $callable[1];
         $begin = '_begin';
         $once = '_once';
         $after = '_after';
 
-        $return = '';
-
         if (method_exists($obj, '_once') && $obj->onceExecuted === false) {
-            $return .= $obj->$once($request, $response, $routeArguments);
+            $obj->$once($request, $response, $routeArguments);
             $obj->onceExecuted = true;
         }
 
         if (method_exists($obj, '_begin')) {
-            $return .= $obj->$begin($request, $response, $routeArguments);
+            $obj->$begin($request, $response, $routeArguments);
         }
 
-        $return .= $obj->$method($request, $response, $routeArguments);
+        $return = $obj->$method($request, $response, $routeArguments);
 
         if (method_exists($obj, '_after')) {
-            $return .= $obj->$after($request, $response, $routeArguments);
+            $obj->$after($request, $response, $routeArguments);
         }
-        return $return;
-//        $ref = new \ReflectionObject($callable[0]);
-//        //$output
-//        print_r($callable[0]); exit();
-//        $begin = $current = $after = '';
-//        if ($ref->hasMethod('_begin')) {
-//            $begin = call_user_func([$callable[0], '_begin'], $request, $response, $routeArguments);
-//        }
-//
-//        $current = call_user_func($callable, $request, $response, $routeArguments);
-//
-//        if ($ref->hasMethod('_after')) {
-//            $after = call_user_func([$callable[0], '_after'], $request, $response, $routeArguments);
-//        }
-//
-//        return $begin . $current . $after;
+
+        return $response->withJson([
+            'status' => 0,
+            'data' => $return
+        ]);
     }
 }

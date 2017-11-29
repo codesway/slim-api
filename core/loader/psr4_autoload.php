@@ -24,4 +24,8 @@ return [
     //module
     'CC\\Api\\User\\' => [A_ROOT . 'user'],
     'CC\\Api\\User\\Orm\\' => [A_ROOT . 'user' . DS . 'orm'],
+
+
+    'CC\\Api\\Error\\' => [A_ROOT . 'error'],
+    'CC\\Api\\Error\\Orm\\' => [A_ROOT . 'error' . DS . 'orm'],
 ];

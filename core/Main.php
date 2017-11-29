@@ -55,7 +55,9 @@ class Main
 //        print_r(new \CC\Controller\User\UserController());
         //启动核心
         ConfigHandler::init();
-        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
+//        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
+        self::$app = new \Slim\App(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
+        self::$app->status = 'init';
         self::registerErrorHandler();
         //载入di依赖组件
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'relys.php');
@@ -63,6 +65,7 @@ class Main
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'middleware.php');
         //载入路由分发
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'routes.php');
+        self::$app->status = 'load_handler';
     }
 
     private static function registerErrorHandler()

@@ -17,7 +17,8 @@ $container['logger'] = function ($c) {
     $log = $c->get('configHandler')->get('logger', 'debug');
     $logger = new Monolog\Logger($log['name']);
     $loggerUid = new Monolog\Processor\UidProcessor();
-    $logger->pushProcessor($loggerUid->getUid());
+    $loggerUid->getUid();
+    $logger->pushProcessor($loggerUid);
     $logger->pushHandler(new Monolog\Handler\StreamHandler($log['path'], $log['level']));
     return $logger;
 };
