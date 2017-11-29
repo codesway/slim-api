@@ -64,9 +64,8 @@ class AppBase extends \Slim\App
                     $data = $body->read(min($chunkSize, $amountToRead));
 
                     echo json_encode([
-                        'status' => 1,
-                        'code' => 200,
-                        'data' => $data,
+                        'status' => 0,  // 0成功，其他失败
+                        'data' => $data,    //内容
                     ], JSON_UNESCAPED_UNICODE);
 
                     $amountToRead -= strlen($data);
