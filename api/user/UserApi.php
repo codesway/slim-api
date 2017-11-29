@@ -43,7 +43,7 @@ class UserApi extends ApiBase
     public function dddExecute()
     {
 
-        print_r(DbHandler::getQueryBuilder('callcenter_common')->table('c_call_evaluate')->get()); exit();
+//        print_r(DbHandler::getQueryBuilder('callcenter_common')->table('c_call_evaluate')->get()); exit();
 
         //查询构造器就这么用
 //        $obj = DbHandler::getQueryBuilder('callcenter_bj')->table('l_line_category')->get();
@@ -53,7 +53,7 @@ class UserApi extends ApiBase
 
         // ORM 就这么调.
         $flights = \CC\Api\User\Orm\UserAnnexed::all();
-
+        return $flights->toArray();
         foreach ($flights as $flight) {
             print_r($flight->cate_name); exit();
         }
