@@ -8,33 +8,36 @@
 
 return [
     'pool' => [
-        'callcenter' => [
+        'cc1' => [
             'read' => [
-                'host' => '127.0.0.1',
+                'host' => '192.168.4.41',
             ],
             'write' => [
-                'host' => '127.0.0.1'
+                'host' => '192.168.4.41'
             ],
             'sticky'    => true,
             'driver'    => 'mysql',
-            'database'  => 'demo',
             'username'  => 'root',
-            'password'  => 'root',
+            'password'  => '30043943',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
+            'port' => 12306,
         ]
     ],
     'dbs' => [
-        'bj' => 'callcenter',
-        'tj' => 'callcenter',
-        'sh' => 'callcenter',
-        'wh' => 'callcenter',
-        'gz' => 'callcenter',
-        'hz' => 'callcenter',
-        'common' => 'callcenter',
+        //真实的db name
+        'callcenter_bj' => 'cc1',
+        'callcenter_tj' => 'cc1',
+        'callcenter_sh' => 'cc1',
+        'callcenter_wh' => 'cc1',
+        'callcenter_gz' => 'cc1',
+        'callcenter_hz' => 'cc1',
+        'callcenter_common' => 'cc1',
         //7个库，1个实例
     ],
+
+    'db_prefix' => 'callcenter',
 ];
 //
 //

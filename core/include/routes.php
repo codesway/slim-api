@@ -18,7 +18,7 @@ $app->get('/user/ddd', \CC\Api\User\UserApi::class. ':dddExecute')->setName('use
 
 $app->get('/[{name}]', function (Request $request, Response $response, array $args) {
     // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+//    $this->logger->info("Slim-Skeleton '/' route");
 
     // Render index view
     return 'this is index response' . PHP_EOL;

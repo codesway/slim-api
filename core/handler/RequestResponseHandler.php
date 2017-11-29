@@ -12,6 +12,11 @@ class RequestResponseHandler implements InvocationStrategyInterface
         foreach ($routeArguments as $k => $v) {
             $request = $request->withAttribute($k, $v);
         }
+
+        if ($callable instanceof \Closure) {
+            return call_user_func($callable, $request, $response, $routeArguments);
+        }
+
         $obj = $callable[0];
         $method = $callable[1];
         $begin = '_begin';

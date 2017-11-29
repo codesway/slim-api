@@ -11,9 +11,13 @@ namespace CC\Core\Base;
 class ApiBase
 {
 
+    public $di = null;
+
     public function __construct($di)
     {
         $this->di = $di;
+        \CC\Core\Base\DbHandler::init($this);
+        \CC\Core\Base\OrmBase::init($this);
         if (!isset($this->onceExecuted)) {
             $this->onceExecuted = null;
         }

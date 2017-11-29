@@ -10,6 +10,7 @@ namespace CC\Api\User;
 
 use CC\Core\Main;
 use CC\Core\Base\ApiBase;
+use CC\Core\Base\DbHandler;
 //use CC\Codebase\Model\User\UserModel;
 
 class UserApi extends ApiBase
@@ -38,18 +39,23 @@ class UserApi extends ApiBase
 
     public function dddExecute()
     {
-        // api luyou
-//        print_r((new UserModel())->getUser());
-//        print_r(Main::getDI('cc_city')); exit();
-//        $this->app = Main::getApp(PHP_SAPI);
-//        print_r(UserModel::All());
-//        throw new \InvalidArgumentException('xxx');
-//        throw new \Exception('exc');
-//        echo $b;
-//        fun();
-//        $this->xxx();
-        $str = $this->get();
-        return $str . 'eeee==';
+
+        print_r(DbHandler::getQueryBuilder('callcenter_common')->table('c_call_evaluate')->get()); exit();
+
+        //查询构造器就这么用
+//        $obj = DbHandler::getQueryBuilder('callcenter_bj')->table('l_line_category')->get();
+//        print_r($obj->toArray());
+//        print_r($obj->toJson());
+//        exit();
+
+        // ORM 就这么调.
+        $flights = \CC\Api\User\Orm\UserAnnexed::all();
+
+        foreach ($flights as $flight) {
+            print_r($flight->cate_name); exit();
+        }
+
+        // 查询构造器和ORM的调用方式都按手册来调用就好
     }
 
 

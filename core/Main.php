@@ -33,6 +33,8 @@ class Main
         defined('ACTION_SUFFIX') or define('ACTION_SUFFIX', 'action');
         defined('C_ROOT') or define('C_ROOT', ROOT . 'controller' . DS);
         defined('A_ROOT') or define('A_ROOT', ROOT . 'api' . DS);
+        defined('SITE_FLAG') or define('SITE_FLAG', 'bj');
+        defined('DB_ALIAS') or define('DB_ALIAS', 'DB.');
     }
 
     private static function _buildInit()
@@ -61,7 +63,6 @@ class Main
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'middleware.php');
         //载入路由分发
         self::_loadHandler(CORE_ROOT . 'include' . DS . 'routes.php');
-
     }
 
     private static function registerErrorHandler()

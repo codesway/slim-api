@@ -22,27 +22,86 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// db 1
-$container['commonDB'] = function ($c) {
-    $dbConf = $c->get('configHandler')->get('database', 'dbs');
-    $dbPool = $c->get('configHandler')->get('database', 'pool')[$dbConf];
+
+// register DB
+$dbs = $container['configHandler']->get('database', 'dbs');
+$connect = $container['configHandler']->get('database', 'pool');
+//
+//print_r($dbs);
+//print_r($connect); exit();
+
+$container['DbMaster'] = function ($c) use ($dbs, $connect) {
     $dbInstance = new \Illuminate\Database\Capsule\Manager();
-    $dbInstance->addConnection($dbPool);
+    foreach ($dbs as $name => $alias) {
+        $connect[$alias]['database'] = $name;
+        $dbInstance->addConnection($connect[$alias], $name);
+//        $dbInstance->setFetchMode(PDO::FETCH_ASSOC);
+    }
     $dbInstance->setAsGlobal();
     $dbInstance->bootEloquent();
     return $dbInstance;
 };
-// db 2
-$container['cityDB'] = function ($c) {
-    $dbConf = $c->get('configHandler')->get('database', 'dbs');
-    $current = 'callcenter';
-    $dbPool = $c->get('configHandler')->get('database', 'pool')[$current];
-    $dbInstance = new \Illuminate\Database\Capsule\Manager();
-    $dbInstance->addConnection($dbPool);
-    $dbInstance->setAsGlobal();
-    $dbInstance->bootEloquent();
-    return $dbInstance;
-};
+
+
+//foreach ($dbs as $name => $database) {
+//    $alias = DB_ALIAS. $name;
+//    $conf = $connect[$database];
+//    $conf['database'] = $name;
+//    $container[$alias] = function ($c) use ($alias, $conf) {
+//        $dbInstance = new \Illuminate\Database\Capsule\Manager();
+//        \Illuminate\Database\Capsule\Manager::connection($alias);
+//        $dbInstance->addConnection($conf, $alias);
+//        $dbInstance->setAsGlobal();
+//        $dbInstance->bootEloquent();
+//        return $dbInstance;
+//    };
+//}
+//
+//print_r($dbConf);
+//print_r($connect); exit();
+//
+//
+//
+//
+//// db 1
+//$container['commonDB'] = function ($c) {
+//    $dbConf = $c->get('configHandler')->get('database', 'dbs');
+//    $database = $dbConf['common'];
+//    $dbPool = $c->get('configHandler')->get('database', 'pool')[$database];
+//    $dbInstance = new \Illuminate\Database\Capsule\Manager();
+//    $dbInstance->addConnection($dbPool);
+//    $dbInstance->setAsGlobal();
+//    $dbInstance->bootEloquent();
+//    return $dbInstance;
+//};
+//// db 2
+//$container['bjDB'] = function ($c) {
+//    $dbConf = $c->get('configHandler')->get('database', 'dbs');
+//    $connect = $c->get('configHandler')->get('database', 'pool');
+//    print_r($dbConf); print_r($connect); exit();
+//    $key = 'bjDB';
+//    $database = $dbConf['bj'];
+//    print_r($database); exit();
+//    $dbPool = $c->get('configHandler')->get('database', 'pool')[$database];
+//    $dbInstance = new \Illuminate\Database\Capsule\Manager();
+//    $dbInstance->addConnection($dbPool);
+////    $dbInstance->setFetchMode(PDO::FETCH_BOTH);
+//    $dbInstance->setAsGlobal();
+//    $dbInstance->bootEloquent();
+//    return $dbInstance;
+//};
+//
+//
+//// testDB
+//$container['testDB'] = function ($c) {
+//    $dbConf = $c->get('configHandler')->get('database', 'dbs');
+//    $dbPool = $c->get('configHandler')->get('database', 'pool')[$dbConf];
+//    $dbInstance = new \Illuminate\Database\Capsule\Manager($c);
+//    $dbInstance->addConnection($dbPool);
+////    $dbInstance->setAsGlobal();
+//    $dbInstance->bootEloquent();
+//    return $dbInstance;
+//};
 
 //接管4个系统默认的异常处理器
 $container['phpErrorHandler'] = function ($c) {

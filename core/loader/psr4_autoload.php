@@ -9,7 +9,6 @@
 
 
 return [
-    'CC\\Api\\User\\' => [A_ROOT . 'user'],
     // codebase
     'CC\\Codebase\\Config\\' => [CODEBASE_ROOT . 'config'],
     'CC\\Codebase\\Api\\' => [CODEBASE_ROOT . 'api'],
@@ -22,4 +21,7 @@ return [
     'CC\\Core\\Base\\' => [CORE_ROOT . 'base'],
     'CC\\Core\\Exception\\' => [CORE_ROOT . 'exception'],
     'CC\\Core\\Handler\\' => [CORE_ROOT . 'handler'],
+    //module
+    'CC\\Api\\User\\' => [A_ROOT . 'user'],
+    'CC\\Api\\User\\Orm\\' => [A_ROOT . 'user' . DS . 'orm'],
 ];
