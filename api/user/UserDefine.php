@@ -6,6 +6,7 @@
  * Time: 10:01
  */
 
+namespace CC\Api\User;
 
 class UserDefine
 {

@@ -14,4 +14,10 @@ class UserAnnexed extends OrmBase
 {
     protected $connection = 'callcenter_bj';
     protected $table = 'l_line_category';
+
+    public static function getone()
+    {
+        return 1;
+    }
+
 }

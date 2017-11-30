@@ -11,16 +11,14 @@ $app = Cc\Core\Main::getApp(PHP_SAPI);
 //
 //# Instantiate with an address range. Allow only this range.
 //$filter = new IpFilterMiddleware([['192.168.1.100', '192.168.1.200']], Mode::DENY);
-$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
+$app->get('/v1/article/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
 
     // Render index view
     return 'this is index response' . PHP_EOL;
+
 });
-
-$app->get('/user/ddd', \CC\Api\User\UserApi::class. ':dddExecute')->setName('userList');
-
 
 //第一个版本路由
 $app->group('/v1/user', function () {
@@ -28,12 +26,6 @@ $app->group('/v1/user', function () {
     $Api = array_pop($path);
     $this->get('/' . $Api, \CC\Api\User\UserApi::class. ':' . $Api . 'Execute')->setName('userList');
 });
-
-$app->get('/user/ccc', function (Request $request, Response $response, array $args) {
-    $obj = $this->cityDB->table('time_st')->get();
-    print_r($obj);
-})->setName('userInfo');
-
 
 $app->group('/v1/error', function () {
     $path = explode('/', $this->getContainer()->get('request')->getUri()->getPath());

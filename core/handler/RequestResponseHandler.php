@@ -50,7 +50,7 @@ class RequestResponseHandler implements InvocationStrategyInterface
 
         return $response->withJson([
             'status' => 0,
-            'data' => $return
+            'data' => $return ?? []
         ]);
     }
 }

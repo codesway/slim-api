@@ -23,7 +23,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
             'port' => 12306,
-        ]
+        ],
     ],
     'dbs' => [
         //真实的db name

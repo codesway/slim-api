@@ -105,27 +105,32 @@ $container['DbMaster'] = function ($c) use ($dbs, $connect) {
 //};
 
 //接管4个系统默认的异常处理器
+//'phpErrorHandler' => \CC\Core\Handler\SystemHandler::class, // php错误
+//    'errorHandler' => \CC\Core\Handler\CommonHandler::class,    // 通用异常处理器
+//    'notFoundHandler' => \CC\Core\Handler\NfoundHandler::class, // 不存在
+//    'notAllowedHandler' => \CC\Core\Handler\InvalidHandler::class, //无效(args|func)
+//    'foundHandler' => \CC\Core\Handler\RequestResponseHandler::class, //无效(args|func)
 $container['phpErrorHandler'] = function ($c) {
-    $class = $c->get('configHandler')->get('base', 'phpErrorHandler');
-    return new $class($c);
+//    $class = $c->get('configHandler')->get('base', 'phpErrorHandler');
+    return new \CC\Core\Handler\SystemHandler($c);
 };
 
 $container['errorHandler'] = function ($c) {
-    $class = $c->get('configHandler')->get('base', 'errorHandler');
-    return new $class($c);
+//    $class = $c->get('configHandler')->get('base', 'errorHandler');
+    return new \CC\Core\Handler\CommonHandler($c);
 };
 
 $container['notFoundHandler'] = function ($c) {
-    $class = $c->get('configHandler')->get('base', 'notFoundHandler');
-    return new $class($c);
+//    $class = $c->get('configHandler')->get('base', 'notFoundHandler');
+    return new \CC\Core\Handler\NfoundHandler($c);
 };
 
 $container['notAllowedHandler'] = function ($c) {
-    $class = $c->get('configHandler')->get('base', 'notAllowedHandler');
-    return new $class($c);
+//    $class = $c->get('configHandler')->get('base', 'notAllowedHandler');
+    return new \CC\Core\Handler\InvalidHandler($c);
 };
 
 $container['foundHandler'] = function ($c) {
-    $class = $c->get('configHandler')->get('base', 'foundHandler');
-    return new $class();
+//    $class = $c->get('configHandler')->get('base', 'foundHandler');
+    return new \CC\Core\Handler\RequestResponseHandler();
 };

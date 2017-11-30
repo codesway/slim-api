@@ -18,7 +18,8 @@ return [
         'hz'=>330100,
         'dev'=>141000,
     ],
-    'sms'=>array(
+    'error_jump_url' => 'xxx.xxx',
+    'sms' => [
         'use' => 'mengwang',
         'mengwang' => array(
             'server_url' => 'http://211.100.34.81:897/MWGate/wmgw.asmx',
@@ -48,5 +49,5 @@ return [
             'port' => '*',
             'encoding'=>'UTF-8',
         ),
-    ),
+    ],
 ];

@@ -28,9 +28,6 @@ class Main
         defined('TEMP_ROOT') or define('TEMP_ROOT', ROOT . 'temp' . DS);
         defined('TPL_ROOT') or define('TPL_ROOT', ROOT . 'templates' . DS);
         defined('CODEBASE_ROOT') or define('CODEBASE_ROOT', ROOT . 'codebase' . DS);
-        defined('CC_ROOT') or define('CC_ROOT', ROOT . 'controller' . DS);
-        defined('CONTROLLER_SUFFIX') or define('CONTROLLER_SUFFIX', 'controller');
-        defined('ACTION_SUFFIX') or define('ACTION_SUFFIX', 'action');
         defined('C_ROOT') or define('C_ROOT', ROOT . 'controller' . DS);
         defined('A_ROOT') or define('A_ROOT', ROOT . 'api' . DS);
         defined('SITE_FLAG') or define('SITE_FLAG', 'bj');
@@ -56,7 +53,11 @@ class Main
         //启动核心
         ConfigHandler::init();
 //        self::$app = new \CC\Core\Base\AppBase(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
-        self::$app = new \Slim\App(ConfigHandler::get('slim'));//下面的三个顺序不可变，必须是这个顺序
+        self::$app = new \Slim\App(['settings' => [
+            'displayErrorDetails' => true, // set to false in production
+            'addContentLengthHeader' => false, // Allow the web server to send the content-length header
+//        'determineRouteBeforeAppMiddleware' => true,
+        ]]);//下面的三个顺序不可变，必须是这个顺序
         self::$app->status = 'init';
         self::registerErrorHandler();
         //载入di依赖组件
@@ -70,7 +71,7 @@ class Main
 
     private static function registerErrorHandler()
     {
-        \CC\Core\Base\EHandler::init(self::getDI());
+        \CC\Core\Base\EHandler::init(self::getDI(), self::$app);
         set_error_handler(['CC\\Core\\Base\\EHandler', 'customErrorHandler']);
         set_exception_handler(['CC\\Core\\Base\\EHandler', 'customExceptionHandler']);
         register_shutdown_function(['CC\\Core\\Base\\EHandler', 'customShutDownHandler']);

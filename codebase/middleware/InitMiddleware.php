@@ -62,4 +62,3 @@ class InitMiddleware extends \CC\Core\Base\MiddlewareBase
 //        }
     }
 }
-

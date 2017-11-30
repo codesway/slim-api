@@ -12,28 +12,46 @@ use Psr\Log\LogLevel;
 class EHandler
 {
     public static $di = null;
+    public static $app = null;
 
     public static $exceptionMap = [
-        'BadFunctionCallException' => ['desc' => '函数不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'BadMethodCallException' => ['desc' => '未定义的方法或方法不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'DomainException' => ['desc' => '不符合有效值的定义区域', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'InvalidArgumentException' => ['desc' => '参数类型错误或参数定义错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'LengthException' => ['desc' => '长度无效', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'LogicException' => ['desc' => '逻辑错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'OutOfBoundsException' => ['desc' => '无效的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'OutOfRangeException' => ['desc' => '非法请求', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'OverflowException' => ['desc' => '数据溢出', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'RangeException' => ['desc' => '不在有效范围', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'RuntimeException' => ['desc' => '运行时的错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'UnderflowException' => ['desc' => '操作一个不存在的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'UnexpectedValueException' => ['desc' => '不符合预期类型', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'Exception' => ['desc' => '常规错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'Throwable' => ['desc' => '通用错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'ErrorException' => ['desc' => '用户级别错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'code' => 1],
-        'MethodNotAllowedException' => ['desc' => '方法不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'fm', 'code' => 1],
-        'NotFoundException' => ['desc' => '目标找不到', 'level' => '11', 'flag' => 'bad_func', 'type' => 'fm', 'code' => 1],
-        'ContainerValueNotFoundException' => ['desc' => '容器内不存在该依赖', 'level' => '11', 'flag' => 'bad_func', 'type' => 'fm', 'code' => 1],
-        'SlimContainerException' => ['desc' => '框架容器错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'fm', 'code' => 1],
+//        'BadFunctionCallException' => ['desc' => '函数不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'BadMethodCallException' => ['desc' => '未定义的方法或方法不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'DomainException' => ['desc' => '不符合有效值的定义区域', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'InvalidArgumentException' => ['desc' => '参数类型错误或参数定义错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'LengthException' => ['desc' => '长度无效', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'LogicException' => ['desc' => '逻辑错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'OutOfBoundsException' => ['desc' => '无效的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'OutOfRangeException' => ['desc' => '非法请求', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'OverflowException' => ['desc' => '数据溢出', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'RangeException' => ['desc' => '不在有效范围', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'RuntimeException' => ['desc' => '运行时的错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'UnderflowException' => ['desc' => '操作一个不存在的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+//        'UnexpectedValueException' => ['desc' => '不符合预期类型', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
+        'Exception' => [
+            'desc' => '常规错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10001
+        ],
+        'CException' => [
+            'desc' => '自定义错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'option', 'status' => 10002
+        ],
+        'Throwable' => [
+            'desc' => '通用错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10003
+        ],
+        'ErrorException' => [
+            'desc' => '用户级别错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10004
+        ],
+        'MethodNotAllowedException' => [
+            'desc' => '方法不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10005
+        ],
+        'NotFoundException' => [
+            'desc' => '目标找不到', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10006
+        ],
+        'ContainerValueNotFoundException' => [
+            'desc' => '容器内不存在该依赖', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10007
+        ],
+        'SlimContainerException' => [
+            'desc' => '框架容器错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10008
+        ],
     ];
     public function __construct($di)
     {
@@ -42,10 +60,13 @@ class EHandler
         }
     }
 
-    public static function init($di)
+    public static function init($di, $app = null)
     {
         if (empty(self::$di)) {
             self::$di = $di;
+        }
+        if (empty(self::$app)) {
+            self::$app = $app;
         }
     }
 
@@ -94,32 +115,66 @@ class EHandler
 
     public static function customExceptionHandler($exception)
     {
-        $gen = self::buildError($exception);
-        foreach ($gen as $action) {
-            print_r($action);
-        }
+        //最终都在这里被调用
+//        $gen = self::execute(self::buildError($exception));
+//        foreach ($gen as $func) {
+//            $func;
+//        }
+        return self::renderToResponse(self::buildError($exception));
     }
 
     protected static function buildError($exception)
     {
 //        var_dump($exception->getPrevious()); exit();
-        $arr = [
+        return [
             'error_url' => self::$di['request']->getUri()->getPath(),
             'error_level' => $exception->getCode(),
             'error_message' => $exception->getMessage(),
+            'error_master' => get_class($exception),
             'error_file' => $exception->getFile(),
             'error_line' => $exception->getLine(),
             'error_type' => $exception->getCode() ? 'ERROR' : 'EXCEPTION',
             'error_trace' => $exception->getTraceAsString(),
-            'error_master' => get_class($exception),
         ];
-        yield self::writeToLog($arr);
-        yield self::sendToMail($arr);
-        yield self::noticeToSms($arr);
-        yield self::redirectTo($arr);
+
+    }
+
+
+    protected static function execute($message)
+    {
+        yield self::renderToResponse($message);
+        yield self::writeToLog($message);
+        yield self::sendToMail($message);
+        yield self::noticeToSms($message);
+        yield self::redirectTo($message);
         return 0;
     }
 
+
+    public static function renderToResponse($arr)
+    {
+        print_r($arr); exit();
+        $code = !empty($arr['error_message']) ? $arr['error_message'] : self::$exceptionMap[$arr['error_master']]['flag'];
+        $desc = self::getExceptionDesc($code);
+        $errResponse = [
+            'status' => self::$exceptionMap[$arr['error_master']]['status'],
+            'data' => [
+                'code' => !empty($arr['error_message']) ? $arr['error_message'] : self::$exceptionMap[$arr['error_master']]['flag'],
+                'desc' => '',
+            ],
+        ];
+        print_r($errResponse); exit();
+        $response = self::$di->get('response');
+        $obj = $response->withJson();
+        return self::$app->respond($obj);
+//        print_r($response); exit();
+//        print_r($arr);
+    }
+
+    public static function getExceptionDesc($code)
+    {
+        return 'this is error ... %s';
+    }
 
     public static function writeToLog($arr)
     {

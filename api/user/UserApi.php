@@ -12,6 +12,7 @@ use CC\Core\Main;
 use CC\Core\Base\ApiBase;
 use CC\Core\Base\DbHandler;
 //use CC\Codebase\Model\User\UserModel;
+use CC\Api\User\UserDefine;
 
 class UserApi extends ApiBase
 {
@@ -26,8 +27,13 @@ class UserApi extends ApiBase
         return 'begin==';
     }
 
-    public function listExecute()
+    public function listExecute($request, $response, $args)
     {
+        return [
+            ['id' => 1, 'name' => 'wangwu'],
+            ['id' => 2, 'name' => 'zhangsan'],
+            ['id' => 3, 'name' => 'lisi']
+        ];
         return [
             1 => 3,
         ];
@@ -42,21 +48,20 @@ class UserApi extends ApiBase
 
     public function dddExecute()
     {
-
+        throw new \BadFunctionCallException('phone_err');
 //        print_r(DbHandler::getQueryBuilder('callcenter_common')->table('c_call_evaluate')->get()); exit();
 
         //查询构造器就这么用
 //        $obj = DbHandler::getQueryBuilder('callcenter_bj')->table('l_line_category')->get();
 //        print_r($obj->toArray());
-//        print_r($obj->toJson());
 //        exit();
 
         // ORM 就这么调.
-        $flights = \CC\Api\User\Orm\UserAnnexed::all();
-        return $flights->toArray();
-        foreach ($flights as $flight) {
-            print_r($flight->cate_name); exit();
-        }
+//        $flights = \CC\Api\User\Orm\UserAnnexed::all();
+//        return $flights->toArray();
+//        foreach ($flights as $flight) {
+//            print_r($flight->cate_name); exit();
+//        }
 
         // 查询构造器和ORM的调用方式都按手册来调用就好
     }
