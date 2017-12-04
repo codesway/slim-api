@@ -54,5 +54,4 @@ class ConfigDefine
     const CITY_TJ = 120300;
     const CITY_HZ = 330100;
     const CITY_DEV = 14100;
-
 }

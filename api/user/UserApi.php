@@ -8,6 +8,7 @@
 */
 namespace CC\Api\User;
 
+use CC\Core\Base\CException;
 use CC\Core\Main;
 use CC\Core\Base\ApiBase;
 use CC\Core\Base\DbHandler;
@@ -29,6 +30,7 @@ class UserApi extends ApiBase
 
     public function listExecute($request, $response, $args)
     {
+        throw new \CC\Core\Base\CException(100001, ['ss', 'xx']);
         return [
             ['id' => 1, 'name' => 'wangwu'],
             ['id' => 2, 'name' => 'zhangsan'],
@@ -82,5 +84,4 @@ class UserApi extends ApiBase
     {
         return 'after==';
     }
-
 }

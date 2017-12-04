@@ -20,4 +20,3 @@ class ApiMiddleware
         return $response;
     }
 }
-

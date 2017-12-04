@@ -15,8 +15,8 @@ use UnexpectedValueException;
  */
 class NfoundHandler extends EHandler
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $exception)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
-        return parent::_invoke($request, $response, $exception);
+        return parent::_invoke($request, $response, new \UnexpectedValueException('Cannot render unknown content type '));
     }
 }

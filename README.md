@@ -68,8 +68,9 @@ server {
 	error_log /data/logs/nginx/your err error;
     
     location / {
-        try_files $uri $uri/ /index.php;
+        try_files $uri $uri/ /index.php$is_args$args;
     }
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
 	include /Users/MacBook/orp/opt/nginx/conf/conf.d/php-fpm71;
 }
 
@@ -96,4 +97,50 @@ https://github.com/slimphp/Slim/wiki/Middleware-for-Slim-Framework-v3.x
 # 目录结构
 ```$xslt
 
+```
+
+
+# 其他
+```$xslt
+为生产环境作准备
+最后提醒一下，在部署代码到生产环境的时候，别忘了优化一下自动加载：
+
+composer dump-autoload --optimize
+安装包的时候可以同样使用--optimize-autoloader。不加这一选项，你可能会发现20%到25%的性能损失。
+```
+# 关于异常怎么用
+
+* throw new CException(100001, ['aa', 'bb']);  具体替换需要看system配置
+
+# 数据格式
+```$xslt
+{
+    "status": 1,
+    "data": {
+        "code": "common_exception",
+        "desc": "Call to a member function get() on null"
+    }
+}
+
+
+
+success
+
+{
+    "status": 0,
+    "data": [
+        {
+            "id": 1,
+            "name": "wangwu"
+        },
+        {
+            "id": 2,
+            "name": "zhangsan"
+        },
+        {
+            "id": 3,
+            "name": "lisi"
+        }
+    ]
+}
 ```

@@ -21,4 +21,3 @@ class TokenMiddleware
         return $response;
     }
 }
-

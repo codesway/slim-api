@@ -19,5 +19,4 @@ class UserAnnexed extends OrmBase
     {
         return 1;
     }
-
 }

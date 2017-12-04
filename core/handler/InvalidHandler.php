@@ -17,6 +17,6 @@ class InvalidHandler extends EHandler
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $methods)
     {
-        return parent::_invoke($request, $response, $methods);
+        return parent::_invoke($request, $response, new \Exception(0, implode('|', $methods)));
     }
 }

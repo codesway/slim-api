@@ -26,4 +26,3 @@ class InputMiddleware extends \CC\Core\Base\MiddlewareBase
         // 获取request的所有参数,定制化检查.提示或者如何
     }
 }
-

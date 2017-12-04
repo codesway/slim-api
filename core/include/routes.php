@@ -11,13 +11,18 @@ $app = Cc\Core\Main::getApp(PHP_SAPI);
 //
 //# Instantiate with an address range. Allow only this range.
 //$filter = new IpFilterMiddleware([['192.168.1.100', '192.168.1.200']], Mode::DENY);
+$app->get('/', function (Request $request, Response $response, array $args) {
+    // Sample log message
+    // Render index view
+    return 'this is index page' . PHP_EOL;
+});
+
 $app->get('/v1/article/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("Slim-Skeleton '/' route");
 
     // Render index view
     return 'this is index response' . PHP_EOL;
-
 });
 
 //第一个版本路由

@@ -15,47 +15,37 @@ class EHandler
     public static $app = null;
 
     public static $exceptionMap = [
-//        'BadFunctionCallException' => ['desc' => '函数不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'BadMethodCallException' => ['desc' => '未定义的方法或方法不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'DomainException' => ['desc' => '不符合有效值的定义区域', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'InvalidArgumentException' => ['desc' => '参数类型错误或参数定义错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'LengthException' => ['desc' => '长度无效', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'LogicException' => ['desc' => '逻辑错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'OutOfBoundsException' => ['desc' => '无效的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'OutOfRangeException' => ['desc' => '非法请求', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'OverflowException' => ['desc' => '数据溢出', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'RangeException' => ['desc' => '不在有效范围', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'RuntimeException' => ['desc' => '运行时的错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'UnderflowException' => ['desc' => '操作一个不存在的值', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
-//        'UnexpectedValueException' => ['desc' => '不符合预期类型', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 1],
         'Exception' => [
-            'desc' => '常规错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10001
+            'desc' => '通用异常', 'type' => 'sys', 'status' => 10001, 'flag' => 'common_exception'
         ],
         'CException' => [
-            'desc' => '自定义错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'option', 'status' => 10002
+            'desc' => '业务自定义错误', 'type' => 'option', 'status' => 10002, 'flag' => 'common_err'
         ],
         'Throwable' => [
-            'desc' => '通用错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10003
+            'desc' => '通用错误', 'type' => 'sys', 'status' => 10003, 'flag' => 'common_err'
         ],
         'ErrorException' => [
-            'desc' => '用户级别错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'sys', 'status' => 10004
+            'desc' => '用户级错误', 'type' => 'sys', 'status' => 10004, 'flag' => 'user_err'
         ],
         'MethodNotAllowedException' => [
-            'desc' => '方法不存在或不可调用', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10005
+            'desc' => '方法不存在或不可调用错误', 'type' => 'slim', 'status' => 10005, 'flag' => 'notfound_err'
         ],
         'NotFoundException' => [
-            'desc' => '目标找不到', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10006
+            'desc' => '找不到目标', 'level', 'type' => 'slim', 'status' => 10006, 'flag' => 'notfound_err'
         ],
         'ContainerValueNotFoundException' => [
-            'desc' => '容器内不存在该依赖', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10007
+            'desc' => '容器内不存在该依赖错误', 'type' => 'slim', 'status' => 10007, 'slim_err'
         ],
         'SlimContainerException' => [
-            'desc' => '框架容器错误', 'level' => '11', 'flag' => 'bad_func', 'type' => 'slim', 'status' => 10008
+            'desc' => '框架容器错误', 'type' => 'slim', 'status' => 10008, 'slim_err'
         ],
     ];
+
+    public $e = null;
+
     public function __construct($di)
     {
-        if (!empty($di)) {
+        if (empty(self::$di)) {
             self::init($di);
         }
     }
@@ -120,29 +110,50 @@ class EHandler
 //        foreach ($gen as $func) {
 //            $func;
 //        }
-        return self::renderToResponse(self::buildError($exception));
+        $exceptionInfo = self::buildError($exception);
+//        print_r($exceptionInfo); exit();
+        return self::renderToResponse($exceptionInfo);
     }
 
     protected static function buildError($exception)
     {
-//        var_dump($exception->getPrevious()); exit();
+        $exceptionType = explode('\\', get_class($exception));
+        $handlerMaster = array_pop($exceptionType);
+        $map = self::$exceptionMap[$handlerMaster] ?? self::$exceptionMap['Exception'];
+        $code = $exception->getCode();
+        if (empty($code) || $code >= 100000) {
+            $level = empty($code) ? E_ERROR : $code;  //1,致命错误
+            $exceptionRet = explode('|', $exception->getMessage());
+            $message = !empty($exception->getMessage()) ? $exceptionRet[0] : $map['desc'];
+        } else {
+            $level = $code; //错误级别
+            $message = !empty($exception->getMessage()) ? $exception->getMessage() : $map['desc'];
+        }
+        if ($code > 100000) {
+            list($module, $flag) = explode(':', $exceptionRet[1]);
+        } else {
+            //非用户自定义的
+            $module = $map['type'];
+            $flag = $map['flag'];
+        }
         return [
             'error_url' => self::$di['request']->getUri()->getPath(),
-            'error_level' => $exception->getCode(),
-            'error_message' => $exception->getMessage(),
-            'error_master' => get_class($exception),
+            'error_level' => $level,
+            'error_message' => $message,
+            'error_master' => $handlerMaster,
             'error_file' => $exception->getFile(),
             'error_line' => $exception->getLine(),
-            'error_type' => $exception->getCode() ? 'ERROR' : 'EXCEPTION',
+            'error_status' => $map['status'],
+            'error_type' => $map['type'],
+            'error_module' => $module,
+            'error_flag' => $flag,
             'error_trace' => $exception->getTraceAsString(),
         ];
-
     }
 
 
     protected static function execute($message)
     {
-        yield self::renderToResponse($message);
         yield self::writeToLog($message);
         yield self::sendToMail($message);
         yield self::noticeToSms($message);
@@ -153,32 +164,92 @@ class EHandler
 
     public static function renderToResponse($arr)
     {
-        print_r($arr); exit();
-        $code = !empty($arr['error_message']) ? $arr['error_message'] : self::$exceptionMap[$arr['error_master']]['flag'];
-        $desc = self::getExceptionDesc($code);
         $errResponse = [
-            'status' => self::$exceptionMap[$arr['error_master']]['status'],
+            'status' => $arr['error_level'],
             'data' => [
-                'code' => !empty($arr['error_message']) ? $arr['error_message'] : self::$exceptionMap[$arr['error_master']]['flag'],
-                'desc' => '',
+                'code' => $arr['error_flag'],
+                'desc' => $arr['error_message'],
             ],
         ];
-        print_r($errResponse); exit();
-        $response = self::$di->get('response');
-        $obj = $response->withJson();
-        return self::$app->respond($obj);
-//        print_r($response); exit();
-//        print_r($arr);
+        echo json_encode($errResponse, JSON_UNESCAPED_UNICODE); exit();
+//        $response = self::$di->get('response');
+//        $obj = $response->withJson($errResponse);
+//        echo $obj; exit();
+//        return self::respond($obj);
     }
 
-    public static function getExceptionDesc($code)
+    private static function isEmetyResponse($response)
     {
-        return 'this is error ... %s';
+        if (method_exists($response, 'isEmpty')) {
+            return $response->isEmpty();
+        }
+        return in_array($response->getStatusCode(), [204, 205, 304]);
+    }
+
+    public static function respond($response)
+    {
+
+        // Send response
+        if (!headers_sent()) {
+            // Headers
+            foreach ($response->getHeaders() as $name => $values) {
+                foreach ($values as $value) {
+                    header(sprintf('%s: %s', $name, $value), false);
+                }
+            }
+
+            // Set the status _after_ the headers, because of PHP's "helpful" behavior with location headers.
+            // See https://github.com/slimphp/Slim/issues/1730
+
+            // Status
+            header(sprintf(
+                'HTTP/%s %s %s',
+                $response->getProtocolVersion(),
+                $response->getStatusCode(),
+                $response->getReasonPhrase()
+            ));
+        }
+
+        // Body
+        if (!self::isEmptyResponse($response)) {
+            $body = $response->getBody();
+            if ($body->isSeekable()) {
+                $body->rewind();
+            }
+            $settings       = self::$di->get('settings');
+            $chunkSize      = $settings['responseChunkSize'];
+
+            $contentLength  = $response->getHeaderLine('Content-Length');
+            if (!$contentLength) {
+                $contentLength = $body->getSize();
+            }
+
+
+            if (isset($contentLength)) {
+                $amountToRead = $contentLength;
+                while ($amountToRead > 0 && !$body->eof()) {
+                    $data = $body->read(min($chunkSize, $amountToRead));
+                    echo $data;
+
+                    $amountToRead -= strlen($data);
+
+                    if (connection_status() != CONNECTION_NORMAL) {
+                        break;
+                    }
+                }
+            } else {
+                while (!$body->eof()) {
+                    echo $body->read($chunkSize);
+                    if (connection_status() != CONNECTION_NORMAL) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public static function writeToLog($arr)
     {
-        print_r($arr);
 //        echo 'log' . PHP_EOL;
         //调用写日志，按级别写
     }

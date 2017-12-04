@@ -8,7 +8,8 @@ use Slim\Interfaces\InvocationStrategyInterface;
 class RequestResponseHandler implements InvocationStrategyInterface
 {
     //过滤还未做
-    public function __invoke(callable $callable, ServerRequestInterface $request, ResponseInterface $response, array $routeArguments) {
+    public function __invoke(callable $callable, ServerRequestInterface $request, ResponseInterface $response, array $routeArguments)
+    {
         foreach ($routeArguments as $k => $v) {
             $request = $request->withAttribute($k, $v);
         }

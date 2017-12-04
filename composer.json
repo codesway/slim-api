@@ -1,8 +1,8 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
+    "name": "CC Powered By Slim3",
+    "description": "CallCenter2018",
     "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "http://github.com/codesway",
     "license": "MIT",
     "authors": [
         {
@@ -20,7 +20,9 @@
         "illuminate/database": "^5.5",
         "zeuxisoo/slim-whoops": "^0.6.1",
         "prezto/permission": "^0.1.0",
-        "prezto/ipfilter": "^0.3.0"
+        "prezto/ipfilter": "^0.3.0",
+        "workerman/workerman": "^3.5",
+        "workerman/gateway-worker": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
@@ -35,6 +37,12 @@
     },
     "scripts": {
         "test": "phpunit"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
     }
 
 }

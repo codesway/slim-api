@@ -120,17 +120,25 @@ $container['errorHandler'] = function ($c) {
     return new \CC\Core\Handler\CommonHandler($c);
 };
 
-$container['notFoundHandler'] = function ($c) {
-//    $class = $c->get('configHandler')->get('base', 'notFoundHandler');
-    return new \CC\Core\Handler\NfoundHandler($c);
-};
+//$container['notFoundHandler'] = function ($c) {
+////    $class = $c->get('configHandler')->get('base', 'notFoundHandler');
+//    return new \CC\Core\Handler\NfoundHandler($c);
+//};
 
-$container['notAllowedHandler'] = function ($c) {
-//    $class = $c->get('configHandler')->get('base', 'notAllowedHandler');
-    return new \CC\Core\Handler\InvalidHandler($c);
-};
+//$container['notAllowedHandler'] = function ($c) {
+////    $class = $c->get('configHandler')->get('base', 'notAllowedHandler');
+//    return new \CC\Core\Handler\InvalidHandler($c);
+//};
 
 $container['foundHandler'] = function ($c) {
 //    $class = $c->get('configHandler')->get('base', 'foundHandler');
     return new \CC\Core\Handler\RequestResponseHandler();
 };
+
+$container['callableResolver'] = function ($c) {
+//    $class = $c->get('configHandler')->get('base', 'foundHandler');
+    return new \CC\Core\Handler\CallableResolverHandler($c);
+};
+
+//unset($di['notFoundHandler']);
+//unset($di['notAllowedHandlers']);

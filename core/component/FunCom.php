@@ -9,11 +9,11 @@
 namespace CC\Core\Component {
 
 
-    function get() {
-
+    function get()
+    {
     }
 
-    function set() {
-
+    function set()
+    {
     }
 }
